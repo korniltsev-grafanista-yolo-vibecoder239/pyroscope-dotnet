@@ -11,6 +11,7 @@ permissions:
 
 jobs:
   discover:
+
     name: discover tests
     runs-on: ubuntu-latest
     outputs:
@@ -44,7 +45,7 @@ jobs:
   test:
     name: integration-test ${{ matrix.test }} ${{ matrix.libc_type }} .NET ${{ matrix.version }}
     needs: discover
-    runs-on: ubuntu-x64-large
+    runs-on: ${{ github.repository_owner == 'grafana' && 'ubuntu-x64-large' || 'ubuntu-latest' }}
     strategy:
       fail-fast: false
       matrix:
